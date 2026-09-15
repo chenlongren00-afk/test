@@ -1,0 +1,8 @@
+import { Controller, Get } from '@nestjs/common'; import { Public } from './common/decorators/public.decorator'; import { RedisService } from './infra/redis.service';
+@Controller('api') export class AppController {
+  constructor(private readonly redis: RedisService) { }
+  @Public() @Get('health') health() { return { ok: true, service: 'australian-helper-server', time: new Date().toISOString() }; }
+  @Public() @Get('app/config') config() { return { appName: 'Australian Helper', maintenanceMode: false, featureFlags: { stripePayments: true, pushNotifications: true, chat: true }, categories: ['Cleaning', 'Gardening', 'Delivery', 'Handyman', 'Moving', 'Tutoring', 'Design', 'Others'] }; }
+  @Public() @Get('app/state') state() { return { tasks: [], notifications: [], messages: [], offers: [], payments: [] }; }
+  @Public() @Get('health/dependencies') dependencies() { return { database: { configured: Boolean(process.env.DATABASE_URL), mode: process.env.DATABASE_URL ? 'migration-ready' : 'memory' }, redis: { configured: this.redis.configured, available: this.redis.available, error: this.redis.error }, stripe: { configured: Boolean(process.env.STRIPE_SECRET_KEY), webhookConfigured: Boolean(process.env.STRIPE_WEBHOOK_SECRET), mode: process.env.STRIPE_SECRET_KEY ? 'live-sdk' : 'mock' }, expoPush: { configured: Boolean(process.env.EXPO_ACCESS_TOKEN), enabled: process.env.EXPO_PUSH_ENABLED === 'true', mode: process.env.EXPO_PUSH_ENABLED === 'true' ? 'expo' : 'mock' }, chat: { transport: 'websocket+rest', paymentGate: process.env.CHAT_ALLOW_PREPAYMENT === 'true' || process.env.CHAT_REQUIRE_PAYMENT === 'false' ? 'disabled' : 'enabled', pushOnMessage: true } }; }
+}

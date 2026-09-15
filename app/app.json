@@ -1,0 +1,1 @@
+{"expo":{"name":"Australian Helper","slug":"australian-helper","scheme":"australianhelper","version":"1.0.0","orientation":"portrait","plugins":["expo-router","expo-secure-store","expo-notifications"],"ios":{"supportsTablet":true,"bundleIdentifier":"com.australianhelper.app"},"android":{"package":"com.australianhelper.app"}}}
