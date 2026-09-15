@@ -1,1 +1,63 @@
-{"expo":{"name":"Australian Helper","slug":"australian-helper","scheme":"australianhelper","version":"1.0.0","orientation":"portrait","plugins":["expo-router","expo-secure-store","expo-notifications"],"ios":{"supportsTablet":true,"bundleIdentifier":"com.australianhelper.app"},"android":{"package":"com.australianhelper.app"}}}
+{
+  "expo": {
+    "name": "Australian Helper",
+    "slug": "australian-helper",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "assetBundlePatterns": ["**/*"],
+    "scheme": "australianhelper",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "plugins": [
+      "expo-router",
+      "expo-secure-store",
+      [
+        "expo-notifications",
+        {
+          "color": "#007D73",
+          "defaultChannel": "task-alerts"
+        }
+      ],
+      "@react-native-community/datetimepicker",
+      "expo-iap",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Australian Helper uses your photo library so you can attach task photos and profile images.",
+          "cameraPermission": "Australian Helper uses the camera so you can add photos to tasks, profiles and messages."
+        }
+      ],
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash-logo.png",
+          "resizeMode": "contain",
+          "backgroundColor": "#007D73"
+        }
+      ]
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.australianhelper.app",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Australian Helper uses the camera so you can add photos to tasks, profiles and messages.",
+        "NSPhotoLibraryUsageDescription": "Australian Helper uses your photo library so you can attach task photos and profile images."
+      }
+    },
+    "android": {
+      "package": "com.australianhelper.app",
+      "softwareKeyboardLayoutMode": "resize",
+      "permissions": ["CAMERA", "READ_MEDIA_IMAGES", "POST_NOTIFICATIONS"],
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#007D73"
+      }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "85df4517-0610-4ad3-b60d-a4c9c917ded1"
+      }
+    }
+  }
+}

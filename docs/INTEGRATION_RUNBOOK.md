@@ -77,3 +77,11 @@ npm run start
 - 使用 EAS 项目 ID 构建 iOS/Android，并在真实设备上验证 APNs/FCM 权限及 token。
 - 为 Socket.IO 配置多实例 Redis adapter，并限制 CORS、速率和消息大小。
 - 运行依赖诊断、冒烟测试及完整端到端支付沙盒测试后再切换生产密钥。
+
+## 原项目 UI 迁移记录
+
+已确认 `E:\myProject\Helper\android-app` 使用 Expo Router + React Native，与当前 `app` 项目是同一移动端技术栈。当前项目已完整迁移原项目的 `app/`、`src/` 和 `assets/`，包括底部五个主导航、任务详情、聊天、支付、提现、通知、设置、资料和帮助页面。入口 `app/index.tsx` 重定向到 `/(tabs)`，Android 和 iOS 共用这套页面实现。
+
+迁移后删除了新项目简化的 `login.tsx`、`post.tsx`、`tasks.tsx`，避免路由覆盖原页面。页面统一通过 `src/state/app-store.tsx` 与 `src/api/client.ts` 使用同一状态/API 客户端。
+
+为保证旧页面在本地真机联调时可点击，Nest API 已提供资料更新、手机号验证（开发码 `123456`）、身份验证 mock、任务删除与状态流转、报价接受/反报价、评价、通知已读、媒体举报、Google Play Pro、提现刷新及支付 checkout mock 兼容路由。真实短信、身份服务、Stripe、PostgreSQL、Redis、Expo Push 仍由环境变量启用，未配置时接口明确返回 mock 或 pending 状态。

@@ -20,6 +20,11 @@ export class PaymentsController {
     return this.payments.createAccountLink(req.user.sub, body);
   }
 
+  @Post('connect/dashboard-link')
+  dashboardLink(@Req() req: any) {
+    return this.payments.createAccountLink(req.user.sub, { dashboard: true });
+  }
+
   @Post('transfers/release')
   release(@Body() body: any, @Req() req: any, @Headers('idempotency-key') idempotencyKey?: string) {
     return this.payments.release(req.user.sub, body, idempotencyKey);
